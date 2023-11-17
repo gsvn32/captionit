@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+            margin: 0;
+            padding: 0;
+            background: url("{% static '/images/hero_back.webp' %}") center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: block;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    #maintitle { 
+    margin-top: 20px; 
+    font-size: xxx-large; 
+    font-style: oblique;
+    color: black;
+    }
+    #subtitle {
+    margin-top: 30px; 
+    font-size: x-large; 
+    font-style: oblique;
+    color:rgb(9, 10, 9);
+    }
+  
+
+    #captionArea {
+      border: 1px solid #ccc;
+      padding: 120px;
+      background-color: white;
+      color: black;
+      margin-top:30px ;
+      margin-left: 330px;
+      margin-right: 330px;
+      border-radius: 10px;
+
+    }
+    #imageUploadContainer {
+           position: relative;
+           overflow: visible;
+           display: inline-block;
+           margin-top: 300px;
+       }
+    #imageInput {
+           font-size: 100px;
+           position: absolute;
+           left: 0;
+           top: 0;
+           opacity: 0;
+       }
+
+       #uploadIcon {
+           cursor: pointer;
+           font-size: 100px;
+           color: black;
+           left: 50%;
+           top: 50%;
+           transform: translate(-50%, -50%);
+       }
+       #btn-Submit {
+            margin-top: 355px;
+            position: absolute;
+            margin-left: 100px;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-bottom: 20px;
+            background-color: yellow;
+            border-radius: 15px;
+        }
+
+
+       
+  </style>
+  <title>CaptionIt</title>
+</head>
+<body>
+<h1 id="maintitle"> Welcome To CaptionIt</h1>
+<h3 id="subtitle">A Cloud based AI image captioning Solution</h3>
+<div id="imageUploadContainer">
+    <input type="file" id="imageInput" accept="image/*">
+    <label for="imageInput" id="uploadIcon"><i class="fas fa-upload"></i></label>
+</div>
+
+  <button id="btn-Submit" onclick="generateCaption()">Submit</button>
+
+  <div id="captionArea"></div>
+
+  <script>
+    function generateCaption() {
+      // Get the input element
+      var imageInput = document.getElementById('imageInput');
+
+      // Get the caption area
+      var captionArea = document.getElementById('captionArea');
+
+      // Check if a file is selected
+      if (imageInput.files.length > 0) {
+        // Get the selected file
+        var file = imageInput.files[0];
+
+        // Create a FileReader
+        var reader = new FileReader();
+
+        // Set the onload function of the FileReader
+        reader.onload = function (e) {
+          // Get the data URL of the image
+          var imageUrl = e.target.result;
+
+          // You can use this URL to display the image if needed
+          // For example: var imgElement = document.createElement('img');
+          // imgElement.src = imageUrl;
+          // captionArea.appendChild(imgElement);
+
+          // For simplicity, let's assume you want to display the file name as the caption
+          var captionText = 'Caption: ' + file.name;
+
+          // Set the caption in the caption area
+          captionArea.textContent = captionText;
+        };
+
+        // Read the file as a data URL
+        reader.readAsDataURL(file);
+      } else {
+        // Display an error message if no file is selected
+        captionArea.textContent = 'Please select an image.';
+      }
+    }
+  </script>
+
+</body>
+</html>
